@@ -11,7 +11,7 @@
 
 defined('ABSPATH') || die;
 require plugin_dir_path(__FILE__).'calendar.php';
-define('rsc_CALENDAR_VER', '0.5.0');
+define('RSC_CALENDAR_VER', '0.5.0');
 
 function add_rsc_calendar_admin_css()
 {
@@ -278,6 +278,9 @@ function rsc_calendar_preview_page()
 
     
     $calendar = new Calendar();
+    
+    $year = null;
+    $month = null;
 
     if (null == $year && isset($_GET['cy'])) {
         $year = htmlentities($_GET['cy'], ENT_QUOTES | ENT_HTML401, 'UTF-8');
