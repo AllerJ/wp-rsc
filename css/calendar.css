@@ -1,0 +1,155 @@
+/**
+* @author  Xu Ding
+* @website https://www.StarTutorial.com
+* @revised by Alessandro Marinuzzi
+* @website https://www.alecos.it/
+* @revised 10.17.2017
+**/
+/*************************** Calendar Top Navigation **************************/
+#calendar {
+  margin: 0px auto;
+  padding: 0px;
+  width: 885px;
+  font-family: Helvetica, "Times New Roman", Times, serif;
+  background-color: white;
+}
+#calendar .calendar_box {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 40px;
+  background-color: #787878;
+}
+#calendar .calendar_header {
+  line-height: 40px;  
+  vertical-align: middle;
+  position: absolute;
+  left: 11px;
+  top: 0px;
+  width: 860px;
+  height: 40px;
+  text-align: center;
+}
+#calendar .calendar_header .calendar_prev, #calendar .calendar_header .calendar_next {
+  position: absolute;
+  top: 0px;
+  height: 17px;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  color: #FFF;
+}
+#calendar .calendar_header .calendar_title {
+  color: #FFF;
+  font-size: 18px;
+}
+#calendar .calendar_header .calendar_prev {
+  left: 0px;
+}
+#calendar .calendar_header .calendar_next {
+  right: 0px;
+}
+/*************************** Calendar Content Cells ***************************/
+#calendar .calendar_content {
+  border: 1px solid #787878;
+  border-top: none;
+}
+#calendar .calendar_label {
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+#calendar .calendar_label .calendar_names {
+  margin: 0px;
+  padding: 0px;
+  margin-right: 5px;
+  float: left;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  background-color: var(--brand-alt);
+}
+#calendar .calendar_dates {
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+/** overall width = width+padding-right **/
+#calendar .calendar_dates .calendar_names, #calendar .calendar_dates .calendar_days, #calendar .calendar_dates .calendar_today {
+  margin: 0px;
+  padding: 0px;
+  margin-right: 5px;
+  margin-top: 5px;
+  line-height: 80px;
+  vertical-align: middle;
+  float: left;
+  width: 120px;
+  height: 120px;
+  font-size: 25px;
+  background-color: #DDD;
+  color: #000;
+  text-align: center;
+}
+.calendar_days:hover {
+  height: 100% !important;
+  min-height: 120px;
+
+}
+.calendar_days:hover .day_events, .calendar_days:hover .day_text {
+ 
+  height: 100% !important;
+  max-height: 100% !important;
+}
+.calendar_days:hover .day_text {
+padding-bottom:10px;
+border-bottom:solid 1px var(--brand-color);
+margin-bottom: 10px;
+}
+#calendar .calendar_dates .calendar_today {
+  background-color: #CC6699;
+}
+:focus {
+  outline: none;
+}
+.calendar_clear {
+  clear: both;
+}
+.day_number {
+	font-size: 1rem;
+	line-height: 1;
+	text-align: left;
+	position: relative;
+	top: 5px;
+	left: 5px;
+}
+.day_text {
+	font-size: .6rem;
+	line-height: 1;
+  padding-left:15px;
+  text-align: left !important;
+  width: 100%;
+  padding-bottom:5px;
+  max-height: 1.4rem;
+  overflow: hidden;
+  margin-block-end: 0px;
+  margin-block-start: 5px;
+
+}
+
+.day_text::before {
+  color: var(--brand-alt);
+  content: "• ";
+  margin-left: -10px;
+}
+.day_events {
+  margin-block-start: 10px;
+}
