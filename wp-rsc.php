@@ -11,22 +11,22 @@
 
 defined('ABSPATH') || die;
 require plugin_dir_path(__FILE__).'calendar.php';
-define('DASH_CALENDAR_VER', '0.5.0');
+define('rsc_CALENDAR_VER', '0.5.0');
 
-function add_dash_calendar_admin_css()
+function add_rsc_calendar_admin_css()
 {
     wp_enqueue_style('wprsc-compart', plugin_dir_url(__FILE__).'/css/com-part.css', array(), null);
     wp_enqueue_style('wprsc-css', plugin_dir_url(__FILE__).'/css/calendar.css', array(), null);
 }
-add_action('admin_enqueue_scripts', 'add_dash_calendar_admin_css');
+add_action('admin_enqueue_scripts', 'add_rsc_calendar_admin_css');
 
-function add_dash_calendar_css()
+function add_rsc_calendar_css()
 {
     wp_enqueue_style('wprsc-css', plugin_dir_url(__FILE__).'/css/calendar.css', array(), null);
 }
-add_action('wp_enqueue_scripts', 'add_dash_calendar_css');
+add_action('wp_enqueue_scripts', 'add_rsc_calendar_css');
 
-function create_dash_calendar_post_type()
+function create_rsc_calendar_post_type()
 {
     $rewrite = array(
         'slug'                  => 'our-events',
@@ -68,7 +68,7 @@ function create_dash_calendar_post_type()
         )
     );
 }
-add_action('init', 'create_dash_calendar_post_type');
+add_action('init', 'create_rsc_calendar_post_type');
 
 add_action('init', function () {
     register_taxonomy('event_category', ['wprsc'], [
@@ -93,7 +93,7 @@ add_action('init', function () {
 });
 
 
-function dash_calendar_change_title_text($title)
+function rsc_calendar_change_title_text($title)
 {
     $screen = get_current_screen();
     if ('wprsc' == $screen->post_type) {
@@ -101,10 +101,10 @@ function dash_calendar_change_title_text($title)
     }
     return $title;
 }
-add_filter('enter_title_here', 'dash_calendar_change_title_text');
+add_filter('enter_title_here', 'rsc_calendar_change_title_text');
 
 
-function add_dash_calendar_post_meta_boxes()
+function add_rsc_calendar_post_meta_boxes()
 {
     add_meta_box(
         "post_metadata_event_box", // div id containing rendered fields
@@ -115,7 +115,7 @@ function add_dash_calendar_post_meta_boxes()
         'high'
     );
 }
-add_action("admin_init", "add_dash_calendar_post_meta_boxes");
+add_action("admin_init", "add_rsc_calendar_post_meta_boxes");
 
 
 function post_meta_box_event_box()
@@ -124,29 +124,29 @@ function post_meta_box_event_box()
     $custom = get_post_custom($post->ID);
 
     $start_date = '_event_start_date';
-    echo dash_calendar_input_box('date', $start_date, $custom[ $start_date ][ 0 ], '1/1/2020', 'Event Date', null, null, '2', true);
+    echo rsc_calendar_input_box('date', $start_date, $custom[ $start_date ][ 0 ], '1/1/2020', 'Event Date', null, null, '2', true);
 
     // TODO: add multi-day events with _event_end_date
     // $end_date = '_event_end_date';
-    // echo dash_calendar_input_box('date', $end_date, $custom[ $end_date ][ 0 ], '1/2/2020', 'End Date', null, null, '2', true);
+    // echo rsc_calendar_input_box('date', $end_date, $custom[ $end_date ][ 0 ], '1/2/2020', 'End Date', null, null, '2', true);
 
     $event_time = '_event_time';
-    echo dash_calendar_input_box('text', $event_time, $custom[ $event_time ][ 0 ], 'From 5pm - 8pm', 'Event Time', null, null, '1', true);
+    echo rsc_calendar_input_box('text', $event_time, $custom[ $event_time ][ 0 ], 'From 5pm - 8pm', 'Event Time', null, null, '1', true);
 
     $location = '_event_location';
-    echo dash_calendar_input_box('text', $location, $custom[ $location ][ 0 ], 'LiFT Academy', 'Location', null, null, '1', true);
+    echo rsc_calendar_input_box('text', $location, $custom[ $location ][ 0 ], 'LiFT Academy', 'Location', null, null, '1', true);
 
     $website = '_event_website';
-    echo dash_calendar_input_box('text', $website, $custom[ $website ][ 0 ], 'https://', 'Event Website', null, null, '1', true);
+    echo rsc_calendar_input_box('text', $website, $custom[ $website ][ 0 ], 'https://', 'Event Website', null, null, '1', true);
 
     $website_text = '_event_website_text';
-    echo dash_calendar_input_box('text', $website_text, $custom[ $website_text ][ 0 ], '', 'Text For Link', null, null, '1', true);
+    echo rsc_calendar_input_box('text', $website_text, $custom[ $website_text ][ 0 ], '', 'Text For Link', null, null, '1', true);
 }
 
 
-function dash_calendar_input_box($type, $name, $value, $placeholder, $label = null, $css = null, $id = null, $row_of = null, $new_line = false)
+function rsc_calendar_input_box($type, $name, $value, $placeholder, $label = null, $css = null, $id = null, $row_of = null, $new_line = false)
 {
-    $new_line ? $build_input = '<div class="dash_input block" ' : $build_input = '<div class="dash_input inline" ' ;
+    $new_line ? $build_input = '<div class="rsc_input block" ' : $build_input = '<div class="rsc_input inline" ' ;
     $row_of ? $build_input .='data-columns="'.$row_of.'">' : $row_of ;
     $label ? $build_input .= '<label>'.$label.'</label><br>' : $label ;
     $build_input .= "<input ";
@@ -180,15 +180,15 @@ function save_event_post_meta_boxes()
 add_action('save_post', 'save_event_post_meta_boxes');
 
 
-function dash_calendar_run_after_title_meta_boxes()
+function rsc_calendar_run_after_title_meta_boxes()
 {
     global $post, $wp_meta_boxes;
     do_meta_boxes(get_current_screen(), 'after_title', $post);
 }
-add_action('edit_form_after_title', 'dash_calendar_run_after_title_meta_boxes');
+add_action('edit_form_after_title', 'rsc_calendar_run_after_title_meta_boxes');
 
 
-function custom_dash_calendar_columns($columns)
+function custom_rsc_calendar_columns($columns)
 {
     $columns = array(
         'cb' => '<input type="checkbox" />',
@@ -198,14 +198,14 @@ function custom_dash_calendar_columns($columns)
      );
     return $columns;
 }
-add_filter('manage_wprsc_posts_columns', 'custom_dash_calendar_columns');
+add_filter('manage_wprsc_posts_columns', 'custom_rsc_calendar_columns');
 
 
-function custom_dash_calendar_columns_data($column, $post_id)
+function custom_rsc_calendar_columns_data($column, $post_id)
 {
     $fmt = new NumberFormatter('en_EN', NumberFormatter::CURRENCY);
     $custom = get_post_custom($post_id);
-    $terms = get_the_terms($post_id, 'dash_calendar');
+    $terms = get_the_terms($post_id, 'rsc_calendar');
     switch ($column) {
     case 'partner-category':
         foreach ($terms as $term) {
@@ -215,7 +215,7 @@ function custom_dash_calendar_columns_data($column, $post_id)
 
     }
 }
-add_action('manage_wprsc_posts_custom_column', 'custom_dash_calendar_columns_data', 10, 2);
+add_action('manage_wprsc_posts_custom_column', 'custom_rsc_calendar_columns_data', 10, 2);
 
 
 function events_by_month($month = null, $year = null)
@@ -273,7 +273,7 @@ function event_array_by_id($post_id)
 }
 
 
-function dash_calendar_preview_page()
+function rsc_calendar_preview_page()
 {
 
     
@@ -327,4 +327,4 @@ function dash_calendar_preview_page()
 
     return $output;
 }
-add_shortcode('dash_calendar_view', 'dash_calendar_preview_page');
+add_shortcode('rsc_calendar_view', 'rsc_calendar_preview_page');
